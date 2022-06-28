@@ -1,6 +1,9 @@
 <h1>day la home</h1>
-<form method="post" action="/user/login">
-<input name="username" placeholder="username ">
-<input name="password" placeholder="password ">
-<button type="submit">Login</button>
-</form>
+{{#each tasks}}
+{{#if this.done}}
+    <li style="color: green;">{{this.title}}</li>
+{{else}}
+
+    <li>{{this.title}}</li>
+{{/if}}
+{{/each}}
