@@ -14,14 +14,16 @@ router.post("/register", async (req, res) => {
 })
 router.post("/login", async (req, res) => {
     try {
+        let { page, perPage } = req.query
+        page = +page || 1
+        perPage = +perPage || 10
         const { username, password } = req.body
-        const user = await User.findOne({ username, password })
+        const user = await User.findOne({ username, password }).limit(perPage).skip((page - 1) * perPage)
         if (user) {
             req.session.user = user
         }
         res.redirect("/")
     } catch (error) {
-
         logger.e(error)
     }
 })
